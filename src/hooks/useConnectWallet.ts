@@ -7,16 +7,8 @@ import { useGlobalStore } from '@/stores/global'
 export function useConnectWallet() {
   const globalStore = useGlobalStore()
   const modal = useAppKit()
-  const { address, isConnected, caipAddress } = useAppKitAccount()
+  const appkitAccount = useAppKitAccount()
   const { disconnect } = useDisconnect()
-
-  if (!globalStore.walletInfo.address) {
-    globalStore.setWalletInfo({
-      address: '',
-      isConnected: '',
-      chainId: caipAddress?.split(':')[1],
-    })
-  }
 
   const connectWallet = () => {
     modal.open()
@@ -35,11 +27,14 @@ export function useConnectWallet() {
       .catch(() => {})
   }
 
-  watch([address, caipAddress], () => {
+  watch([() => appkitAccount.value.address, () => appkitAccount.value.isConnected, () => appkitAccount.value.caipAddress], () => {
+    console.log('account updated:', appkitAccount.value.address)
+    console.log('account updated:', appkitAccount.value.isConnected)
+
     globalStore.setWalletInfo({
-      address,
-      isConnected,
-      chainId: caipAddress?.split(':')[1],
+      address:appkitAccount.value.address,
+      isConnected:appkitAccount.value.isConnected,
+      chainId: appkitAccount.value.caipAddress?.split(':')[1],
     })
   })
 
