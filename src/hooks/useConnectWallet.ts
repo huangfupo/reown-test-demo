@@ -30,7 +30,8 @@ export function useConnectWallet() {
   watch([() => appkitAccount.value.address, () => appkitAccount.value.isConnected, () => appkitAccount.value.caipAddress], () => {
     console.log('account updated:', appkitAccount.value.address)
     console.log('account updated:', appkitAccount.value.isConnected)
-
+    console.log('account updated:', appkitAccount.value.caipAddress)
+    console.log(appkitAccount.value.caipAddress?.split(':'))
     globalStore.setWalletInfo({
       address:appkitAccount.value.address,
       isConnected:appkitAccount.value.isConnected,
