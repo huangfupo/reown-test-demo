@@ -16,6 +16,7 @@
     "@reown/appkit-adapter-solana": "^1.6.3",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "1.98.0",
+    "axios": "^1.7.9",
     "element-plus": "^2.9.1",
     "ethers": "^6.13.4",
     "pinia": "^2.3.0",
