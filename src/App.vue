@@ -16,9 +16,7 @@ import { SolflareWalletAdapter, PhantomWalletAdapter } from '@solana/wallet-adap
 const ethersAdapter = new EthersAdapter()
 
 // 1. Create Solana adapter
-const solanaWeb3JsAdapter = new SolanaAdapter({
-  wallets: [new PhantomWalletAdapter(), new SolflareWalletAdapter()]
-})
+const solanaWeb3JsAdapter = new SolanaAdapter()
 
 // 2. Get projectId from https://cloud.reown.com
 const projectId = '0994d604ea8f67806c1604de2ab87feb'

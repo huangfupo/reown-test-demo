@@ -17,4 +17,20 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        sourcemap: false,
+        chunkFileNames: 'assets/js/index-[hash].js',
+        entryFileNames: 'assets/js/index-[hash].js',
+        assetFileNames: 'assets/[ext]/index-[hash].[ext]',
+        manualChunks(id) {
+          // id为文件的绝对路径
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString()
+          }
+        }
+      }
+    }
+  }
 })
