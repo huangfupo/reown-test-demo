@@ -1,8 +1,16 @@
 <template>
+  <div style="margin-bottom: 45px;">
+    <RouterLink to="/">
+      <span class="">Connect Wallet</span>
+    </RouterLink>
+    <RouterLink to="/Echarts">
+      <span class="">Echarts</span>
+    </RouterLink>
+  </div>
   <RouterView />
 </template>
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView,RouterLink } from 'vue-router'
 import { createAppKit } from '@reown/appkit/vue'
 import { SolanaAdapter } from '@reown/appkit-adapter-solana'
 import { EthersAdapter } from '@reown/appkit-adapter-ethers'
@@ -41,3 +49,16 @@ createAppKit({
 })
 
 </script>
+<style scoped>
+a {
+  margin-left: 15px;
+  font-size: 14px;
+  color: black;
+  font-style: normal;
+  font-family: 'PingFangSC-Medium';
+  white-space: nowrap;
+}
+  .router-link-active.router-link-exact-active {
+    color: hsla(160, 100%, 37%, 1);
+  }
+</style>
