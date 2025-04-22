@@ -13,6 +13,7 @@ const base = +new Date(2021, 1, 1);
 const oneDay = 24 * 3600 * 1000;
 const date: Date[] = [];
 const xData:any = [];
+const Iq = "M0 1C0 0.447716 0.447715 0 1 0H27C27.5523 0 28 0.447715 28 1V17.0513C28 17.6036 27.5523 18.0513 27 18.0513H21H17.9499C17.6638 18.0513 17.3914 18.1739 17.2016 18.388L14 22L10.7984 18.388C10.6086 18.1739 10.3362 18.0513 10.0501 18.0513H7H1C0.447715 18.0513 0 17.6036 0 17.0513V1Z";
 let now:any = new Date(base);
 function addData(shift:boolean) {
   now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');
@@ -60,6 +61,72 @@ let M = function(W:any, F:any) {
         children: q
     }
 };
+
+function N(D:string) {
+        const M = D.includes("+")
+          , I = `${D}`.length;
+        return {
+            1: .63,
+            2: M ? .63 : .6,
+            3: M ? .52 : .48,
+            4: M ? .5 : .4
+        }[I] ?? .7
+    }
+
+const O = (W:any, F:any) => {
+    const G = F.coord([F.value(0), F.value(1)])
+      , q = true
+      , fe = []
+      , Ce = `+5`,
+      Ff = 12,
+      xe = {
+            width: 17.5,
+            height: 21.3
+        }
+      , Oe = 10
+      , Ge = 5
+      , Ue = q ? G[1] + xe.height / 2 + Ff : G[1] - xe.height / 2 - Ff
+      , Je = q ? G[1] + xe.width - N(Ce) * xe.width / 2 * 1.08 + (Ff - 4) : G[1] - xe.width - N(Ce) * xe.width / 2 * .86 - (Ff - 4);
+    return fe.push({
+        type: "path",
+        shape: {
+            pathData: Iq,
+            x: -27.5 / 2,
+            y: -26.3 / 2,
+            width: xe.width + Oe,
+            height: xe.height + Ge
+        },
+        style: {
+            fill: "#2DBE87"
+        },
+        emphasis: {
+            style: {
+                lineWidth: 1.5,
+                stroke: "#F1CF21"
+            }
+        },
+        position: [G[0], Ue],
+        rotation: q ? Math.PI : 0,
+        silent: false,
+        z: 10
+    }, {
+        type: "text",
+        x: G[0],
+        y: Je,
+        style: {
+            text: Ce,
+            textAlign: "center",
+            fontSize: N(Ce) * xe.width,
+            fill: "#fff"
+        },
+        silent: true,
+        z: 9
+    }),
+    {
+        type: "group",
+        children: fe
+    }
+}
 
 const initEcharts = () => {
   lineEchart.value = (Echarts as any).init(echartContainer.value,null,{ renderer: 'svg' })
@@ -120,6 +187,14 @@ const initEcharts = () => {
         },
         z: 1
       }, {
+          type: "custom",
+          renderItem: O,
+          data: [[date.at(1),xData.at(1)],[date.at(2),xData.at(2)],[date.at(8),xData.at(8)]],
+          tooltip: {
+              show: !1
+          },
+          z: 3
+      }, {
         type: "custom",
         renderItem: M,
         data: [[date.at(-1),xData.at(-1)]],
@@ -166,6 +241,14 @@ onMounted(()=>{
       series: [{
         data: xData,
       }, {
+          type: "custom",
+          renderItem: O,
+          data: [[date.at(1),xData.at(1)],[date.at(2),xData.at(2)],[date.at(8),xData.at(8)]],
+          tooltip: {
+              show: !1
+          },
+          z: 3
+      }, {
         type: "custom",
         renderItem: M,
         data: [[date.at(-1),xData.at(-1)]],
@@ -188,7 +271,7 @@ onMounted(()=>{
         z: 2
       }]
     });
-  }, 5000);
+  }, 2000);
 })
 
 window.addEventListener('resize', resizeChart);
