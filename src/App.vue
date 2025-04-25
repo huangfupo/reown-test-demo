@@ -6,6 +6,9 @@
     <RouterLink to="/Echarts">
       <span class="">Echarts</span>
     </RouterLink>
+    <RouterLink to="/Timeline">
+      <span class="">Timeline</span>
+    </RouterLink>
   </div>
   <RouterView />
 </template>
