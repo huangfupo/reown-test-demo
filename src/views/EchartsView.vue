@@ -2,7 +2,7 @@
   <div id="echarts" ref="echartContainer"></div>
 </template>
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue';
+import { inject, markRaw, onMounted, ref } from 'vue';
 
 // 获取 echart 挂载的DOM节点
 const echartContainer = ref()
@@ -129,7 +129,7 @@ const O = (W:any, F:any) => {
 }
 
 const initEcharts = () => {
-  lineEchart.value = (Echarts as any).init(echartContainer.value,null,{ renderer: 'svg' })
+  lineEchart.value = markRaw((Echarts as any).init(echartContainer.value,null,{ renderer: 'svg' }))
   const options = {
     tooltip: {
       trigger: 'axis'
